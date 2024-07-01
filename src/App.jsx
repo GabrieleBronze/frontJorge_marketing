@@ -3,23 +3,26 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import Home from './pages/home/home';
-import Colaboradores from './pages/colaboradores/Colaboradores';
-import Demissao from './pages/demissao/Demissao';
-import Admissao from './pages/admissao/Admissao';
+import Campanha from './pages/marketing/Campanha';
+import { Evento } from './pages/marketing/Evento';
+
+
+
+
+
 
 
 export default function App() {
   return (
     <>
       <BrowserRouter>
-      <Header />
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="colaboradores" element ={<Colaboradores/>}/>
-          <Route path="admissao" element = {<Admissao/>} /> 
-          <Route path= "demissao" element = {<Demissao/>}/>
+          <Route path="campanha" element={<Campanha />} />
+          <Route path="evento" element = {<Evento/>} /> 
         </Routes>
-      <Footer />
+        <Footer />
       </BrowserRouter>
     </>
   )
