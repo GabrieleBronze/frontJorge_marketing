@@ -3,25 +3,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import './styleCadastros.css';
 
-const CadastroForm = () => {
+const CadastroIndicadores = () => {
     const [form, setForm] = useState({
-        nome: "",
-        periodoInicio: "",
-        periodoFim: "",
-        descricao: "",
-        conteudo: "",
-        valor: ""
+        nome: '',
+        descricao: '',
+        setor: ''
     });
     const [dados, setDados] = useState([]);
     const [editingId, setEditingId] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/campanhas')
+        axios.get('http://localhost:8080/api/indicadores')
             .then(response => {
-                setDados(response.data.content);
+                console.log(response.data)
+                setDados(response.data);
             })
             .catch(error => {
-                console.error('Erro ao carregar as campanhas:', error);
+                console.error('Erro ao carregar os indicadores:', error);
             });
     }, []);
 
@@ -33,67 +31,54 @@ const CadastroForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (editingId !== null) {
-            axios.put(`http://localhost:8080/api/campanhas/${editingId}`, form)
+            axios.put(`http://localhost:8080/api/indicadores/${editingId}`, form)
                 .then(response => {
                     setDados(dados.map((item) => (item.id === editingId ? response.data : item)));
                     setEditingId(null);
                     setForm({
-                        nome: "",
-                        periodoInicio: "",
-                        periodoFim: "",
-                        descricao: "",
-                        conteudo: "",
-                        valor: ""
+                        nome: '',
+                        descricao: '',
+                        setor: ''
                     });
                 })
                 .catch(error => {
-                    console.error('Erro ao editar uma campanha:', error);
+                    console.error('Erro ao editar um indicador:', error);
                 });
         } else {
-            axios.post('http://localhost:8080/api/campanhas', form)
+            axios.post('http://localhost:8080/api/indicadores', form)
                 .then(response => {
                     setDados([...dados, response.data]);
                     setForm({
-                        nome: "",
-                        periodoInicio: "",
-                        periodoFim: "",
-                        descricao: "",
-                        conteudo: "",
-                        valor: ""
+                        nome: '',
+                        descricao: '',
+                        setor: ''
                     });
                 })
                 .catch(error => {
-                    console.error('Erro ao adicionar uma campanha:', error);
+                    console.error('Erro ao adicionar um indicador:', error);
                 });
         }
     };
 
     const handleEdit = (item) => {
-        setForm({
-            nome: item.nome,
-            periodoInicio: item.periodoInicio,
-            periodoFim: item.periodoFim,
-            descricao: item.descricao,
-            conteudo: item.conteudo,
-            valor: item.valor
-        });
+        setForm(item);
         setEditingId(item.id);
     };
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:8080/api/campanhas/${id}`)
+        axios.delete(`http://localhost:8080/api/indicadores/${id}`)
             .then(() => {
                 setDados(dados.filter((item) => item.id !== id));
             })
             .catch(error => {
-                console.error('Erro ao excluir uma campanha:', error);
+                console.error('Erro ao excluir um indicador:', error);
             });
     };
 
     return (
         <div className="container d-flex flex-column align-items-center justify-content-center min-vh-100">
             <div className="card p-4 shadow">
-                <h2 className="text-center text-primary mb-4">Cadastro de Campanha</h2>
+                <h2 className="text-center text-primary mb-4">Cadastro de Indicadores</h2>
                 <form onSubmit={handleSubmit} className="mb-4 w-100">
                     <div className="row">
                         <div className="col-md-6 mb-3">
@@ -103,28 +88,6 @@ const CadastroForm = () => {
                                 name="nome"
                                 placeholder="Nome"
                                 value={form.nome}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </div>
-                        <div className="col-md-6 mb-3">
-                            <input
-                                type="date"
-                                className="form-control"
-                                name="periodoInicio"
-                                placeholder="Data Inicial"
-                                value={form.periodoInicio}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </div>
-                        <div className="col-md-6 mb-3">
-                            <input
-                                type="date"
-                                className="form-control"
-                                name="periodoFim"
-                                placeholder="Data Final"
-                                value={form.periodoFim}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -144,20 +107,9 @@ const CadastroForm = () => {
                             <input
                                 type="text"
                                 className="form-control"
-                                name="conteudo"
-                                placeholder="Conteúdo"
-                                value={form.conteudo}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </div>
-                        <div className="col-md-6 mb-3">
-                            <input
-                                type="number"
-                                className="form-control"
-                                name="valor"
-                                placeholder="Valor"
-                                value={form.valor}
+                                name="setor"
+                                placeholder="Setor"
+                                value={form.setor}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -171,11 +123,8 @@ const CadastroForm = () => {
                             <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
-                                <th>Data Inicial</th>
-                                <th>Data Final</th>
                                 <th>Descrição</th>
-                                <th>Conteúdo</th>
-                                <th>Valor</th>
+                                <th>Setor</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -184,11 +133,8 @@ const CadastroForm = () => {
                                 <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>{item.nome}</td>
-                                    <td>{item.periodoInicio}</td>
-                                    <td>{item.periodoFim}</td>
                                     <td>{item.descricao}</td>
-                                    <td>{item.conteudo}</td>
-                                    <td>{item.valor}</td>
+                                    <td>{item.setor}</td>
                                     <td>
                                         <button className="btn btn-warning btn-sm" onClick={() => handleEdit(item)}>Editar</button>
                                         <button className="btn btn-danger btn-sm ms-2" onClick={() => handleDelete(item.id)}>Excluir</button>
@@ -203,4 +149,4 @@ const CadastroForm = () => {
     );
 };
 
-export default CadastroForm;
+export default CadastroIndicadores;

@@ -1,7 +1,12 @@
 import React from 'react'
+import CadastroQualidade from '../../components/marketing/CadastroQualidade'
+
 
 export const Qualidade = () => {
   return (
-    <div>Qualidade</div>
+    <div>
+      <CadastroQualidade />
+    </div>
   )
 }
+export default Qualidade

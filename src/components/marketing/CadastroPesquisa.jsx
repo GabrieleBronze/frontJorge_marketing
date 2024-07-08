@@ -3,27 +3,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import './styleCadastros.css';
 
-const CadastroEvento = () => {
+const CadastroPesquisa = () => {
     const [form, setForm] = useState({
         nome: '',
-        local: '',
-        dataInicio: '',
-        dataFinal: '',
-        valor: '',
-        custo: '',
-        conteudo: '',
+        periodoInicio: '',
+        periodoFim: '',
+        setor: '',
         descricao: ''
     });
     const [dados, setDados] = useState([]);
     const [editingId, setEditingId] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/eventos')
+        axios.get('http://localhost:8080/api/pesquisas')
             .then(response => {
-                setDados(response.data.content);
+                setDados(response.data);
             })
             .catch(error => {
-                console.error('Erro ao carregar os eventos:', error);
+                console.error('Erro ao carregar as pesquisas:', error);
             });
     }, []);
 
@@ -35,41 +32,35 @@ const CadastroEvento = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (editingId !== null) {
-            axios.put(`http://localhost:8080/api/eventos/${editingId}`, form)
+            axios.put(`http://localhost:8080/api/pesquisas/${editingId}`, form)
                 .then(response => {
                     setDados(dados.map((item) => (item.id === editingId ? response.data : item)));
                     setEditingId(null);
                     setForm({
                         nome: '',
-                        local: '',
-                        dataInicio: '',
-                        dataFinal: '',
-                        valor: '',
-                        custo: '',
-                        conteudo: '',
+                        periodoInicio: '',
+                        periodoFim: '',
+                        setor: '',
                         descricao: ''
                     });
                 })
                 .catch(error => {
-                    console.error('Erro ao editar o evento:', error);
+                    console.error('Erro ao editar uma pesquisa:', error);
                 });
         } else {
-            axios.post('http://localhost:8080/api/eventos', form)
+            axios.post('http://localhost:8080/api/pesquisas', form)
                 .then(response => {
                     setDados([...dados, response.data]);
                     setForm({
                         nome: '',
-                        local: '',
-                        dataInicio: '',
-                        dataFinal: '',
-                        valor: '',
-                        custo: '',
-                        conteudo: '',
+                        periodoInicio: '',
+                        periodoFim: '',
+                        setor: '',
                         descricao: ''
                     });
                 })
                 .catch(error => {
-                    console.error('Erro ao adicionar o evento:', error);
+                    console.error('Erro ao adicionar uma pesquisa:', error);
                 });
         }
     };
@@ -80,19 +71,19 @@ const CadastroEvento = () => {
     };
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:8080/api/eventos/${id}`)
+        axios.delete(`http://localhost:8080/api/pesquisas/${id}`)
             .then(() => {
                 setDados(dados.filter((item) => item.id !== id));
             })
             .catch(error => {
-                console.error('Erro ao excluir o evento:', error);
+                console.error('Erro ao excluir uma pesquisa:', error);
             });
     };
 
     return (
         <div className="container d-flex flex-column align-items-center justify-content-center min-vh-100">
             <div className="card p-4 shadow">
-                <h2 className="text-center text-primary mb-4">Cadastro de Eventos</h2>
+                <h2 className="text-center text-primary mb-4">Cadastro de Pesquisa</h2>
                 <form onSubmit={handleSubmit} className="mb-4 w-100">
                     <div className="row">
                         <div className="col-md-6 mb-3">
@@ -108,22 +99,11 @@ const CadastroEvento = () => {
                         </div>
                         <div className="col-md-6 mb-3">
                             <input
-                                type="text"
-                                className="form-control"
-                                name="local"
-                                placeholder="Local"
-                                value={form.local}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </div>
-                        <div className="col-md-6 mb-3">
-                            <input
                                 type="date"
                                 className="form-control"
-                                name="dataInicio"
+                                name="periodoInicio"
                                 placeholder="Data Início"
-                                value={form.dataInicio}
+                                value={form.periodoInicio}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -132,31 +112,9 @@ const CadastroEvento = () => {
                             <input
                                 type="date"
                                 className="form-control"
-                                name="dataFinal"
+                                name="periodoFim"
                                 placeholder="Data Final"
-                                value={form.dataFinal}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </div>
-                        <div className="col-md-6 mb-3">
-                            <input
-                                type="number"
-                                className="form-control"
-                                name="valor"
-                                placeholder="Valor"
-                                value={form.valor}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </div>
-                        <div className="col-md-6 mb-3">
-                            <input
-                                type="number"
-                                className="form-control"
-                                name="custo"
-                                placeholder="Custo"
-                                value={form.custo}
+                                value={form.periodoFim}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -165,9 +123,9 @@ const CadastroEvento = () => {
                             <input
                                 type="text"
                                 className="form-control"
-                                name="conteudo"
-                                placeholder="Conteúdo"
-                                value={form.conteudo}
+                                name="setor"
+                                placeholder="Setor"
+                                value={form.setor}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -192,12 +150,9 @@ const CadastroEvento = () => {
                             <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
-                                <th>Local</th>
                                 <th>Data Início</th>
                                 <th>Data Final</th>
-                                <th>Valor</th>
-                                <th>Custo</th>
-                                <th>Conteúdo</th>
+                                <th>Setor</th>
                                 <th>Descrição</th>
                                 <th>Ações</th>
                             </tr>
@@ -207,12 +162,9 @@ const CadastroEvento = () => {
                                 <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>{item.nome}</td>
-                                    <td>{item.local}</td>
-                                    <td>{item.dataInicio}</td>
-                                    <td>{item.dataFinal}</td>
-                                    <td>{item.valor}</td>
-                                    <td>{item.custo}</td>
-                                    <td>{item.conteudo}</td>
+                                    <td>{item.periodoInicio}</td>
+                                    <td>{item.periodoFim}</td>
+                                    <td>{item.setor}</td>
                                     <td>{item.descricao}</td>
                                     <td>
                                         <button className="btn btn-warning btn-sm" onClick={() => handleEdit(item)}>Editar</button>
@@ -228,4 +180,4 @@ const CadastroEvento = () => {
     );
 };
 
-export default CadastroEvento;
+export default CadastroPesquisa;

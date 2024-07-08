@@ -4,7 +4,7 @@ import CadastroForm from '../../components/marketing/CadastroForm'
 export const Campanha = () => {
   return (
     <div>
-        <CadastroForm/>
+      <CadastroForm />
     </div>
   )
 }
