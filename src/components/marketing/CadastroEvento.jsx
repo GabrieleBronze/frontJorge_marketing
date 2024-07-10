@@ -16,6 +16,7 @@ const CadastroEvento = () => {
     });
     const [dados, setDados] = useState([]);
     const [editingId, setEditingId] = useState(null);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/eventos')
@@ -34,6 +35,23 @@ const CadastroEvento = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const hoje = new Date().toISOString().split('T')[0];
+        
+        if (form.periodoInicio < hoje || form.periodoFim < hoje) {
+            setError("As datas não podem ser anteriores à data atual.");
+            return;
+        }
+
+        if (form.periodoInicio > form.periodoFim) {
+            setError("A data de início não pode ser posterior à data final.");
+            return;
+        }
+
+        if (form.valor < 0 || form.custo < 0) {
+            setError("Os campos valor e custo não podem ser menores que zero.");
+            return;
+        } 
+        setError("");
         if (editingId !== null) {
             axios.put(`http://localhost:8080/api/eventos/${editingId}`, form)
                 .then(response => {
@@ -93,6 +111,9 @@ const CadastroEvento = () => {
         <div className="container d-flex flex-column align-items-center justify-content-center min-vh-100">
             <div className="card p-4 shadow">
                 <h2 className="text-center text-primary mb-4">Cadastro de Eventos</h2>
+                
+             {error && <div className="alert alert-danger">{error}</div>} 
+
                 <form onSubmit={handleSubmit} className="mb-4 w-100">
                     <div className="row">
                         <div className="col-md-6 mb-3">
@@ -128,7 +149,7 @@ const CadastroEvento = () => {
                                 required
                             />
                         </div>
-                        <div className="col-md-6 mb-3">
+                    <div className="col-md-6 mb-3">
                             <input
                                 type="date"
                                 className="form-control"

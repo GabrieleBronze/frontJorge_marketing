@@ -13,6 +13,7 @@ const CadastroPesquisa = () => {
     });
     const [dados, setDados] = useState([]);
     const [editingId, setEditingId] = useState(null);
+    const[error, setError] = useState("");
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/pesquisas')
@@ -31,6 +32,19 @@ const CadastroPesquisa = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const hoje = new Date().toISOString().split('T')[0];
+        
+        if (form.periodoInicio < hoje || form.periodoFim < hoje) {
+            setError("As datas não podem ser anteriores à data atual.");
+            return;
+        }
+
+        if (form.periodoInicio > form.periodoFim) {
+            setError("A data de início não pode ser posterior à data final.");
+            return;
+        }
+
+        setError("");
         if (editingId !== null) {
             axios.put(`http://localhost:8080/api/pesquisas/${editingId}`, form)
                 .then(response => {
@@ -84,6 +98,7 @@ const CadastroPesquisa = () => {
         <div className="container d-flex flex-column align-items-center justify-content-center min-vh-100">
             <div className="card p-4 shadow">
                 <h2 className="text-center text-primary mb-4">Cadastro de Pesquisa</h2>
+                {error && <div className="alert alert-danger">{error}</div>}
                 <form onSubmit={handleSubmit} className="mb-4 w-100">
                     <div className="row">
                         <div className="col-md-6 mb-3">
