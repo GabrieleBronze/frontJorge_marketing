@@ -7,8 +7,8 @@ const CadastroEvento = () => {
     const [form, setForm] = useState({
         nome: '',
         local: '',
-        dataInicio: '',
-        dataFinal: '',
+        periodoInicio: '',
+        periodoFim: '',
         valor: '',
         custo: '',
         conteudo: '',
@@ -42,8 +42,8 @@ const CadastroEvento = () => {
                     setForm({
                         nome: '',
                         local: '',
-                        dataInicio: '',
-                        dataFinal: '',
+                        periodoInicio: '',
+                        periodoFim: '',
                         valor: '',
                         custo: '',
                         conteudo: '',
@@ -60,8 +60,8 @@ const CadastroEvento = () => {
                     setForm({
                         nome: '',
                         local: '',
-                        dataInicio: '',
-                        dataFinal: '',
+                        periodoInicio: '',
+                        periodoFim: '',
                         valor: '',
                         custo: '',
                         conteudo: '',
@@ -121,9 +121,9 @@ const CadastroEvento = () => {
                             <input
                                 type="date"
                                 className="form-control"
-                                name="dataInicio"
+                                name="periodoInicio"
                                 placeholder="Data Início"
-                                value={form.dataInicio}
+                                value={form.periodoInicio}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -132,9 +132,9 @@ const CadastroEvento = () => {
                             <input
                                 type="date"
                                 className="form-control"
-                                name="dataFinal"
+                                name="periodoFim"
                                 placeholder="Data Final"
-                                value={form.dataFinal}
+                                value={form.periodoFim}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -190,7 +190,7 @@ const CadastroEvento = () => {
                     <table className="table table-striped table-bordered text-center">
                         <thead className="thead-dark">
                             <tr>
-                                <th>ID</th>
+                                
                                 <th>Nome</th>
                                 <th>Local</th>
                                 <th>Data Início</th>
@@ -205,11 +205,11 @@ const CadastroEvento = () => {
                         <tbody>
                             {dados.map((item) => (
                                 <tr key={item.id}>
-                                    <td>{item.id}</td>
+                                    
                                     <td>{item.nome}</td>
                                     <td>{item.local}</td>
-                                    <td>{item.dataInicio}</td>
-                                    <td>{item.dataFinal}</td>
+                                    <td>{item.periodoInicio}</td>
+                                    <td>{item.periodoFim}</td>
                                     <td>{item.valor}</td>
                                     <td>{item.custo}</td>
                                     <td>{item.conteudo}</td>

@@ -21,8 +21,8 @@ export default function Header() {
       <div className={`${styles.icon} ${headerClicked ? styles.iconActive : ''}`} onClick={handleIconClick}>
         {headerClicked ? <IoClose /> : <RxHamburgerMenu />}
       </div>
-      <header className={headerClicked ? `${styles.header} ${styles.headerTransform}` : styles.header}>
-        <NavLink to="/"> Home</NavLink>
+     <header className={headerClicked ? `${styles.header} ${styles.headerTransform}` : styles.header}>
+        <NavLink to="/"> Home </NavLink>
         
         <Dropdown>
           <Dropdown.Toggle variant="dark" id="dropdown-basic">
@@ -36,9 +36,6 @@ export default function Header() {
             <Dropdown.Item as={Link} to={`/indicadores`}>  Indicadores </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-
-
-
       </header>
     </>
   );
