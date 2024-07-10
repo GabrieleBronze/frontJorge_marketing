@@ -121,7 +121,7 @@ const CadastroIndicadores = () => {
                     <table className="table table-striped table-bordered text-center">
                         <thead className="thead-dark">
                             <tr>
-                               
+                                <th>ID</th>
                                 <th>Nome</th>
                                 <th>Descrição</th>
                                 <th>Setor</th>
@@ -131,7 +131,7 @@ const CadastroIndicadores = () => {
                         <tbody>
                             {dados.map((item) => (
                                 <tr key={item.id}>
-                                    
+                                    <td>{item.id}</td>
                                     <td>{item.nome}</td>
                                     <td>{item.descricao}</td>
                                     <td>{item.setor}</td>

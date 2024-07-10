@@ -166,7 +166,7 @@ const CadastroEvento = () => {
                                 type="text"
                                 className="form-control"
                                 name="conteudo"
-                                placeholder="Conteúdo"
+                                placeholder="Conteudo"
                                 value={form.conteudo}
                                 onChange={handleInputChange}
                                 required
@@ -190,7 +190,7 @@ const CadastroEvento = () => {
                     <table className="table table-striped table-bordered text-center">
                         <thead className="thead-dark">
                             <tr>
-                                
+                                <th>ID</th>
                                 <th>Nome</th>
                                 <th>Local</th>
                                 <th>Data Início</th>
@@ -205,7 +205,7 @@ const CadastroEvento = () => {
                         <tbody>
                             {dados.map((item) => (
                                 <tr key={item.id}>
-                                    
+                                    <td>{item.id}</td>
                                     <td>{item.nome}</td>
                                     <td>{item.local}</td>
                                     <td>{item.periodoInicio}</td>

@@ -148,7 +148,7 @@ const CadastroPesquisa = () => {
                     <table className="table table-striped table-bordered text-center">
                         <thead className="thead-dark">
                             <tr>
-                                
+                                <th>ID</th>
                                 <th>Nome</th>
                                 <th>Data Início</th>
                                 <th>Data Final</th>
@@ -160,7 +160,7 @@ const CadastroPesquisa = () => {
                         <tbody>
                             {dados.map((item) => (
                                 <tr key={item.id}>
-                                    
+                                    <td>{item.id}</td>
                                     <td>{item.nome}</td>
                                     <td>{item.periodoInicio}</td>
                                     <td>{item.periodoFim}</td>
