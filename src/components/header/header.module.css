@@ -6,26 +6,46 @@
     gap: 30px;
     background-color: black;
     font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
     font-weight: 400;
-    font-style: normal;
     position: fixed;
     z-index: 1000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.header a {
+.navLink {
     color: white;
     text-decoration: none;
     padding: 10px 20px;
     transition: color 0.3s ease;
 }
 
-.header a:hover {
+.navLink:hover {
     color: rgb(64, 105, 241);
 }
 
 .headerTransform {
     transform: translateX(0%);
+}
+
+.dropdownToggle {
+    background-color: black;
+    border: none;
+    font-family: "Montserrat", sans-serif;
+}
+
+.dropdownMenu {
+    background-color: black;
+}
+
+.dropdownItem {
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdownItem:hover {
+    background-color: rgb(64, 105, 241);
+    color: white;
 }
 
 @media only screen and (max-width: 900px) {
@@ -34,10 +54,6 @@
         transform: translateX(100%);
         gap: 15px;
         transition: transform 0.3s ease;
-    }
-
-    .header a {
-        padding: 10px;
     }
 
     .headerTransform {
@@ -50,12 +66,27 @@
         top: 10px;
         font-size: 30px;
         cursor: pointer;
-        color: black;
+        color: white;
         z-index: 9999;
         transition: color 0.3s ease;
     }
 
     .iconActive {
-        color: white;
+        color: rgb(64, 105, 241);
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .navLink {
+        padding: 8px 15px;
+    }
+
+    .icon {
+        font-size: 25px;
     }
 }
