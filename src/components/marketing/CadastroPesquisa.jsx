@@ -18,7 +18,7 @@ const CadastroPesquisa = () => {
     useEffect(() => {
         axios.get('http://localhost:8080/api/pesquisas')
             .then(response => {
-                setDados(response.data);
+                setDados(response.data.content);
             })
             .catch(error => {
                 console.error('Erro ao carregar as pesquisas:', error);

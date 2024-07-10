@@ -15,8 +15,7 @@ const CadastroIndicadores = () => {
     useEffect(() => {
         axios.get('http://localhost:8080/api/indicadores')
             .then(response => {
-                console.log(response.data)
-                setDados(response.data);
+                setDados(response.data.content);
             })
             .catch(error => {
                 console.error('Erro ao carregar os indicadores:', error);
