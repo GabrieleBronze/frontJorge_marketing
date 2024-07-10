@@ -4,7 +4,7 @@ export default function Footer() {
     return (
         <>
             <footer className={styles.rodape}>
-                <p>© Portal Rh 2024.</p>
+                <p>© Setor Marketing 2024.</p>
             </footer>
         </>
     )
